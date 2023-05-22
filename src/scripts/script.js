@@ -31,43 +31,6 @@ const options = {
   threshold: 1.0,
 };
 
-const loadMorePhotos = async function (entries, observer) {
-  entries.forEach(async entry => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      pixaby.incrementPage();
-
-      spinnerPlay();
-
-      try {
-        spinnerPlay();
-
-        const { hits } = await pixaby.getPhotos();
-        const markup = createMarkup(hits);
-        refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-        // const showMore = pixaby.hasMorePhotos();
-        if (pixaby.hasMorePhotos) {
-          const lastItem = document.querySelector('.gallery a:last-child');
-          observer.observe(lastItem);
-        } else
-          Notify.info(
-            "We're sorry, but you've reached the end of search results.");
-
-        modalLightboxGallery.refresh();
-        scrollPage();
-      } catch (error) {
-        Notify.failure(error.message, 'Something went wrong!');
-        clearPage();
-      } finally {
-        spinnerStop();
-      }
-    }
-  });
-};
-
-const observer = new IntersectionObserver(loadMorePhotos, options);
-
 const onSubmitClick = async event => {
   event.preventDefault();
 
@@ -95,7 +58,8 @@ const onSubmitClick = async event => {
 
     if (hits.length === 0) {
       Notify.failure(
-        `Sorry, there are no images matching your ${search_query}. Please try again.`);
+        `Sorry, there are no images matching your ${search_query}. Please try again.`
+      );
 
       return;
     }
@@ -108,9 +72,6 @@ const onSubmitClick = async event => {
 
     if (pixaby.hasMorePhotos) {
       refs.btnLoadMore.classList.remove('is-hidden');
-
-      const lastItem = document.querySelector('.gallery a:last-child');
-      observer.observe(lastItem);
     }
 
     modalLightboxGallery.refresh();
@@ -130,7 +91,6 @@ const onLoadMore = async () => {
   if (!pixaby.hasMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
-    notifyInit;
   }
   try {
     const { hits } = await pixaby.getPhotos();
@@ -165,4 +125,3 @@ function scrollPage() {
     behavior: 'smooth',
   });
 }
-
