@@ -25,47 +25,6 @@ refs.btnLoadMore.classList.add('is-hidden');
 
 const pixaby = new PixabayAPI();
 
-const options = {
-  root: null,
-  rootMargin: '100px',
-  threshold: 1.0,
-};
-
-// const loadMorePhotos = async function (entries, observer) {
-//   entries.forEach(async entry => {
-//     if (entry.isIntersecting) {
-//       observer.unobserve(entry.target);
-//       pixaby.incrementPage();
-
-//       spinnerPlay();
-
-//       try {
-//         spinnerPlay();
-
-//         const { hits } = await pixaby.getPhotos();
-//         const markup = createMarkup(hits);
-//         refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-//         if (pixaby.hasMorePhotos) {
-//           const lastItem = document.querySelector('.gallery a:last-child');
-//           observer.observe(lastItem);
-//         } else
-//           Notify.info(
-//             "We're sorry, but you've reached the end of search results."
-//           );
-
-//         modalLightboxGallery.refresh();
-//         scrollPage();
-//       } catch (error) {
-//         Notify.failure(error.message, 'Something went wrong!');
-//         clearPage();
-//       } finally {
-//         spinnerStop();
-//       }
-//     }
-//   });
-// };
-
 const onSubmitClick = async event => {
   event.preventDefault();
 
