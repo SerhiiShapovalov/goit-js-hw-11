@@ -10,7 +10,9 @@ import { refs } from './refs';
 import { spinnerPlay, spinnerStop } from './spinner';
 
 const modalLightboxGallery = new SimpleLightbox('.gallery a', {
-  captionDelay: 250,
+  captionsData: 'alt',
+  captionPosition: 'bottom, center',
+  captionDelay: 250,  
 });
 
 spinnerPlay();
