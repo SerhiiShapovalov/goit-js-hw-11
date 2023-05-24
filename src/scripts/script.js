@@ -11,7 +11,7 @@ import { spinnerPlay, spinnerStop } from './spinner';
 
 const modalLightboxGallery = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
-  captionPosition: 'bottom, center',
+  captionPosition: 'bottom',
   captionDelay: 250,  
 });
 
