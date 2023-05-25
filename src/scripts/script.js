@@ -66,7 +66,7 @@ const onSubmitClick = async event => {
     pixaby.setTotal(total);
     Notify.success(`Hooray! We found ${total} images.`);
 
-    if (pixaby.hasMorePhotos) {
+    if (total > 40) {
       refs.btnLoadMore.classList.remove('is-hidden');
     } else refs.btnLoadMore.classList.add('is-hidden');
     modalLightboxGallery.refresh();
