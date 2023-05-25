@@ -67,9 +67,8 @@ const onSubmitClick = async event => {
     Notify.success(`Hooray! We found ${total} images.`);
 
     if (total > 40) {
-      refs.btnLoadMore.classList.remove('is-hidden');      
+      refs.btnLoadMore.classList.remove('is-hidden');
     } else refs.btnLoadMore.classList.add('is-hidden');
-    Notify.info("We're sorry, but you've reached the end of search results.");
     modalLightboxGallery.refresh();
     scrollPage();
   } catch (error) {
