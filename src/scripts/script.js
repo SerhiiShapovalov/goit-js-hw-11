@@ -67,8 +67,9 @@ const onSubmitClick = async event => {
     Notify.success(`Hooray! We found ${total} images.`);
 
     if (total > 40) {
-      refs.btnLoadMore.classList.remove('is-hidden');
+      refs.btnLoadMore.classList.remove('is-hidden');      
     } else refs.btnLoadMore.classList.add('is-hidden');
+    Notify.info("We're sorry, but you've reached the end of search results.");
     modalLightboxGallery.refresh();
     scrollPage();
   } catch (error) {
@@ -83,10 +84,13 @@ const onSubmitClick = async event => {
 const onLoadMore = async () => {
   pixaby.incrementPage();
 
-  if (pixaby.hasMorePhotos) {
+  if (!pixaby.hasMorePhotos) {
+    refs.btnLoadMore.classList.remove('is-hidden');        
+  } else {    
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
   }
+
   try {
     const { hits } = await pixaby.getPhotos();
     const markup = createMarkup(hits);
