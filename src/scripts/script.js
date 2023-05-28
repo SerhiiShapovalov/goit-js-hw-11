@@ -50,7 +50,7 @@ const onSubmitClick = async event => {
 
   try {
     spinnerPlay();
-    const { hits, total } = await pixaby.getPhotos();
+    const { hits, totalHits } = await pixaby.getPhotos();
 
     if (hits.length === 0) {
       Notify.failure(
@@ -63,10 +63,10 @@ const onSubmitClick = async event => {
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-    pixaby.setTotal(total);
-    Notify.success(`Hooray! We found ${total} images.`);
+    // pixaby.setTotal(total);
+    Notify.success(`Hooray! We found ${totalHits} images.`);
 
-    if (total > 40) {
+    if (totalHits > 40) {
       refs.btnLoadMore.classList.remove('is-hidden');
     } else refs.btnLoadMore.classList.add('is-hidden');
     modalLightboxGallery.refresh();
@@ -104,7 +104,7 @@ const onLoadMore = async () => {
 };
 
 function clearPage() {
-  pixaby.resetPage();
+  // pixaby.resetPage();
   refs.gallery.innerHTML = '';
   refs.btnLoadMore.classList.add('is-hidden');
 }

@@ -24,8 +24,7 @@ export class PixabayAPI {
     const urlAXIOS = `?key=${API_KEY}`;
 
     const { data } = await axios
-      .get(urlAXIOS, { params })
-      .then(response => response.data);
+      .get(urlAXIOS, { params });
     
     return data;
   }
@@ -46,8 +45,8 @@ export class PixabayAPI {
   //   this.page = 1;
   // }
 
-  // setTotal(totalHits) {
-  //   this.totalHits = totalHits;
+  // setTotal(total) {
+  //   this.totalHits = total;
   // }
 
   hasNoMorePhotos() {
