@@ -80,8 +80,13 @@ const onSubmitClick = async event => {
   }
 };
 
-const onLoadMore = async () => {
+async function onLoadMore() {
   pixaby.incrementPage();
+  const { hits } = await pixaby.getPhotos();
+  const markup = createMarkup(hits);
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
+
+  modalLightboxGallery.refresh();
 
   if (!pixaby.hasNoMorePhotos) {
     refs.btnLoadMore.classList.remove('is-hidden');
@@ -89,19 +94,31 @@ const onLoadMore = async () => {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
   }
-
-  try {
-    const { hits } = await pixaby.getPhotos();
-    const markup = createMarkup(hits);
-    refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-    modalLightboxGallery.refresh();
-  } catch (error) {
-    Notify.failure(error.message, 'Something went wrong!');
-
-    clearPage();
-  }
 };
+
+// ******
+// const onLoadMore = async () => {
+//   pixaby.incrementPage();
+
+//   if (!pixaby.hasNoMorePhotos) {
+//     refs.btnLoadMore.classList.remove('is-hidden');
+//   } else {
+//     refs.btnLoadMore.classList.add('is-hidden');
+//     Notify.info("We're sorry, but you've reached the end of search results.");
+//   }
+
+//   try {
+//     const { hits } = await pixaby.getPhotos();
+//     const markup = createMarkup(hits);
+//     refs.gallery.insertAdjacentHTML('beforeend', markup);
+
+//     modalLightboxGallery.refresh();
+//   } catch (error) {
+//     Notify.failure(error.message, 'Something went wrong!');
+
+//     clearPage();
+//   }
+// };
 
 function clearPage() {
   // pixaby.resetPage();
