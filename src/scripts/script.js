@@ -121,7 +121,7 @@ async function onLoadMore() {
 // };
 
 function clearPage() {
-  // pixaby.resetPage();
+  pixaby.resetPage();
   refs.gallery.innerHTML = '';
   refs.btnLoadMore.classList.add('is-hidden');
 }
