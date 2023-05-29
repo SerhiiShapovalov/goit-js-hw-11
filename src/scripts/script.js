@@ -12,7 +12,7 @@ import { spinnerPlay, spinnerStop } from './spinner';
 const modalLightboxGallery = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionPosition: 'bottom',
-  captionDelay: 250,  
+  captionDelay: 250,
 });
 
 spinnerPlay();
@@ -90,11 +90,11 @@ async function onLoadMore() {
 
   if (pixaby.hasMorePhotos) {
     refs.btnLoadMore.classList.remove('is-hidden');
-  } else if (!pixaby.hasNoMorePhotos) {
+  } else if (pixaby.hasNoMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
   }
-};
+}
 
 // ******
 // const onLoadMore = async () => {

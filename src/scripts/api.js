@@ -40,9 +40,9 @@ export class PixabayAPI {
     this.page += 1;
   }
 
-  // resetPage() {
-  //   this.page = 1;
-  // }
+  resetPage() {
+    this.page = 1;
+  }
 
   // setTotal(total) {
   //   this.totalHits = total;
