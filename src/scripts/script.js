@@ -88,9 +88,9 @@ async function onLoadMore() {
 
   modalLightboxGallery.refresh();
 
-  if (!pixaby.hasNoMorePhotos) {
+  if (pixaby.hasMorePhotos) {
     refs.btnLoadMore.classList.remove('is-hidden');
-  } else {
+  } else if (!pixaby.hasNoMorePhotos) {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
   }
