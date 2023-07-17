@@ -103,30 +103,6 @@ async function onLoadMore() {
   totalHits = newTotalHits; // Оновлюємо значення totalHits
 }
 
-// ******
-// const onLoadMore = async () => {
-//   pixaby.incrementPage();
-
-//   if (!pixaby.hasNoMorePhotos) {
-//     refs.btnLoadMore.classList.remove('is-hidden');
-//   } else {
-//     refs.btnLoadMore.classList.add('is-hidden');
-//     Notify.info("We're sorry, but you've reached the end of search results.");
-//   }
-
-//   try {
-//     const { hits } = await pixaby.getPhotos();
-//     const markup = createMarkup(hits);
-//     refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-//     modalLightboxGallery.refresh();
-//   } catch (error) {
-//     Notify.failure(error.message, 'Something went wrong!');
-
-//     clearPage();
-//   }
-// };
-
 function clearPage() {
   pixaby.resetPage();
   refs.gallery.innerHTML = '';
