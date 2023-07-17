@@ -17,6 +17,8 @@ const modalLightboxGallery = new SimpleLightbox('.gallery a', {
 
 spinnerPlay();
 
+let totalHits = 0;
+
 window.addEventListener('load', () => {
   console.log('All resources finished loading!');
 
@@ -50,7 +52,7 @@ const onSubmitClick = async event => {
 
   try {
     spinnerPlay();
-    const { hits, totalHits } = await pixaby.getPhotos();
+    const { hits, totalHits: newTotalHits } = await pixaby.getPhotos();
 
     if (hits.length === 0) {
       Notify.failure(
@@ -60,15 +62,18 @@ const onSubmitClick = async event => {
       return;
     }
 
+    totalHits = newTotalHits; // Оновлюємо значення totalHits
+
     const markup = createMarkup(hits);
     refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-    // pixaby.setTotal(total);
     Notify.success(`Hooray! We found ${totalHits} images.`);
 
     if (totalHits > 40) {
       refs.btnLoadMore.classList.remove('is-hidden');
-    } else refs.btnLoadMore.classList.add('is-hidden');
+    } else {
+      refs.btnLoadMore.classList.add('is-hidden');
+    }
     modalLightboxGallery.refresh();
     scrollPage();
   } catch (error) {
@@ -82,18 +87,20 @@ const onSubmitClick = async event => {
 
 async function onLoadMore() {
   pixaby.incrementPage();
-  const { hits } = await pixaby.getPhotos();
+  const { hits, totalHits: newTotalHits } = await pixaby.getPhotos();
   const markup = createMarkup(hits);
   refs.gallery.insertAdjacentHTML('beforeend', markup);
 
   modalLightboxGallery.refresh();
 
-  if (pixaby.hasMorePhotos) {
+  if (pixaby.hasMorePhotos()) {
     refs.btnLoadMore.classList.remove('is-hidden');
-  } else if (pixaby.hasNoMorePhotos) {
+  } else {
     refs.btnLoadMore.classList.add('is-hidden');
     Notify.info("We're sorry, but you've reached the end of search results.");
   }
+
+  totalHits = newTotalHits; // Оновлюємо значення totalHits
 }
 
 // ******
